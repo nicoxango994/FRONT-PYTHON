@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const apiUrl = 'http://niconb994.pythonanywhere.com';
+    const apiUrl = 'https://niconb994.pythonanywhere.com';
     const agregarForm = document.getElementById('agregarProductoForm');
     const actualizarForm = document.getElementById('actualizarProductoForm');
     const tableBody = document.getElementById('productosTable').querySelector('tbody');
     let isUpdating = false;
 
     const fetchProductos = async () => {
-        const response = await fetch('http://niconb994.pythonanywhere.com/productos');
+        const response = await fetch(`${apiUrl}/productos`);
         const productos = await response.json();
         tableBody.innerHTML = '';
         productos.forEach(producto => {
