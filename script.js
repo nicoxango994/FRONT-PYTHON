@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const apiUrl = 'https://niconb994.pythonanywhere.com';
-    const form = document.getElementById('agregarProductoForm');
+    const apiUrl = 'http://niconb994.pythonanywhere.com';
+    const agregarForm = document.getElementById('agregarProductoForm');
     const actualizarForm = document.getElementById('actualizarProductoForm');
     const tableBody = document.getElementById('productosTable').querySelector('tbody');
     let isUpdating = false;
 
     const fetchProductos = async () => {
-        const response = await fetch('https://niconb994.pythonanywhere.com/productos');
+        const response = await fetch(`${apiUrl}/productos`);
         const productos = await response.json();
         tableBody.innerHTML = '';
         productos.forEach(producto => {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateProducto = async (id, producto) => {
-        await fetch('https://niconb994.pythonanywhere.com/actualizar_producto/${id}', {
+        await fetch(`${apiUrl}/actualizar_producto/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -54,23 +54,32 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchProductos();
     };
 
-    form.addEventListener('submit', (e) => {
+    agregarForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const id = document.getElementById('idActualizar').value;
         const nombre = document.getElementById('nombre').value;
         const cantidad = document.getElementById('cantidad').value;
         const precio = document.getElementById('precio').value;
         const producto = { nombre, cantidad, precio };
 
+        addProducto(producto);
+        agregarForm.reset();
+    });
+
+    actualizarForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('idActualizar').value;
+        const nombre = document.getElementById('nombreActualizar').value;
+        const cantidad = document.getElementById('cantidadActualizar').value;
+        const precio = document.getElementById('precioActualizar').value;
+        const producto = { nombre, cantidad, precio };
+
         if (isUpdating) {
             updateProducto(id, producto);
             isUpdating = false;
-            toggleForm('actualizarProductoForm'); // Ocultar el formulario de actualización después de guardar
-        } else {
-            addProducto(producto);
+            toggleForm('actualizarProductoForm');
         }
 
-        form.reset();
+        actualizarForm.reset();
         document.getElementById('idActualizar').value = '';
     });
 
@@ -80,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('cantidadActualizar').value = cantidad;
         document.getElementById('precioActualizar').value = precio;
         isUpdating = true;
-        toggleForm('actualizarProductoForm'); // Mostrar el formulario de actualización cuando se edita
+        toggleForm('actualizarProductoForm');
     };
 
     window.deleteProducto = (id) => {
