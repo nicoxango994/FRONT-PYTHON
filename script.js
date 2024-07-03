@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateProducto = async (id, producto) => {
-        await fetch(`https://niconb994.pythonanywhere.com/actualizar_producto/${id}`, {
+        await fetch('https://niconb994.pythonanywhere.com/actualizar_producto/${id}', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
