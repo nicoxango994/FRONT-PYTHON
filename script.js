@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isUpdating = false;
 
     const fetchProductos = async () => {
-        const response = await fetch(`${apiUrl}/productos`);
+        const response = await fetch('http://niconb994.pythonanywhere.com/productos');
         const productos = await response.json();
         tableBody.innerHTML = '';
         productos.forEach(producto => {
