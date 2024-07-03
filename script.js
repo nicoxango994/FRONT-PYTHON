@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isUpdating = false;
 
     const fetchProductos = async () => {
-        const response = await fetch('http://niconb994.pythonanywhere.com/productos');
+        const response = await fetch(`${apiUrl}/productos`);
         const productos = await response.json();
         tableBody.innerHTML = '';
         productos.forEach(producto => {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${producto.nombre}</td>
                 <td>${producto.cantidad}</td>
                 <td>${producto.precio}</td>
-                <td>
+                <td id="actions">
                     <button onclick="editProducto(${producto.id}, '${producto.nombre}', ${producto.cantidad}, ${producto.precio})">Editar</button>
                     <button id="delete" onclick="deleteProducto(${producto.id})">Eliminar</button>
                 </td>
