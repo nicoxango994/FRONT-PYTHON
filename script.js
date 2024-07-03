@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const apiUrl = 'http://niconb994.pythonanywhere.com';
+    const apiUrl = 'https://niconb994.pythonanywhere.com';
     const form = document.getElementById('agregarProductoForm');
     const actualizarForm = document.getElementById('actualizarProductoForm');
     const tableBody = document.getElementById('productosTable').querySelector('tbody');
